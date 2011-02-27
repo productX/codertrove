@@ -18,7 +18,7 @@ CREATE TABLE `users` (
 DROP TABLE IF EXISTS `userinterests`;
 CREATE TABLE `userinterests` (
   `userid` bigint NOT NULL,
-  `skillid` bigint NOT NULL
+  `skillid` bigint NOT NULL,
   PRIMARY KEY (`userid`, `skillid`)
 ) ENGINE=MyISAM;
 
@@ -30,7 +30,7 @@ CREATE TABLE `payments` (
   `userid` bigint NOT NULL,
   `amount` double NOT NULL,
   `paymenttimestamp` datetime NOT NULL,
-  `packagetype` int NOT NULL
+  `packagetype` int NOT NULL,
   PRIMARY KEY (`paymentid`)
 ) ENGINE=MyISAM;
 
@@ -43,7 +43,7 @@ CREATE TABLE `coders` (
   `picURL` char(256) DEFAULT '',
   `fullname` char(70) DEFAULT '',
   `email` char(80) DEFAULT '',
-  `linkedinURL` char(256) DEFAULT ''
+  `linkedinURL` char(256) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
@@ -56,7 +56,7 @@ CREATE TABLE `codersourceprofiles` (
   `username` char(80) DEFAULT '',
   `datejoined` date,
   `ranking` int,
-  `karma` int
+  `karma` int,
   PRIMARY KEY (`coderid`, `sourceid`)
 ) ENGINE=MyISAM;
 
@@ -70,7 +70,7 @@ CREATE TABLE `coderactivity` (
   `commenttitle` char(256) DEFAULT '',
   `commentbody` text DEFAULT '',
   `likes` int DEFAULT 0,
-  `commentURL` char(256) DEFAULT ''
+  `commentURL` char(256) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
@@ -80,7 +80,7 @@ DROP TABLE IF EXISTS `codermessages`;
 CREATE TABLE `codermessages` (
   `userid` bigint NOT NULL,
   `coderid` bigint NOT NULL,
-  `contents` text DEFAULT ''
+  `contents` text DEFAULT '',
   PRIMARY KEY (`userid`, `coderid`)
 ) ENGINE=MyISAM;
 
@@ -111,7 +111,7 @@ CREATE TABLE `sources` (
   `id` bigint NOT NULL,
   `name` char(40) NOT NULL,
   `URL` char(256) NOT NULL,
-  `logoURL` char(256) NOT NULL
+  `logoURL` char(256) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
