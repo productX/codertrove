@@ -17,7 +17,7 @@ function buildCoderSourceProfile($sourceID, $siteUserID) {
 	$about = $userData['about'];
 
 	$coderID = getOrBuildCoderID($userName, $about);
-	mysql_query("INSERT INTO codersourceprofiles (coderid, sourceid, username, joindate, ranking, karma, sourcesiteuserid, about) VALUES ($coderID, $sourceID, '$userName', UNIX_TIMESTAMP($joinDate), $ranking, $karma, '$siteUserID', '$about')");		
+	doQuery("INSERT INTO codersourceprofiles (coderid, sourceid, username, joindate, ranking, karma, sourcesiteuserid, about) VALUES ($coderID, $sourceID, '$userName', UNIX_TIMESTAMP($joinDate), $ranking, $karma, '$siteUserID', '$about')");		
 	return $coderID;
 }
 
@@ -75,7 +75,7 @@ for($i=0; $i<count($postIDs); ++$i) {
 }
 
 if(!is_null($nextLastPostID)) {
-	mysql_query("UPDATE sources SET statusblob='".serialize(array('lastPostID' => $nextLastPostID))."' WHERE id=$sourceID");
+	doQuery("UPDATE sources SET statusblob='".serialize(array('lastPostID' => $nextLastPostID))."' WHERE id=$sourceID");
 }
 
 ?>

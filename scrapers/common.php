@@ -195,4 +195,12 @@ function getEmailInString($str) {
 	return null;
 }
 
+$queryDebug=true;
+function doQuery($queryStr) {
+	if($queryDebug) {
+		echo $queryStr."\n";
+	}
+	return mysql_query($queryStr);
+}
+
 ?>
