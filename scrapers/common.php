@@ -220,7 +220,7 @@ function getFirstURLInString($str) {
 
 function getEmailInString($str) {
 	$emails = array();
-	preg_match("/[^@ ]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+/", $str, $emails);
+	preg_match("/[^@ \/:]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+/", $str, $emails);
 	if(count($emails)) {
 		return $emails[0];
 	}
