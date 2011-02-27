@@ -1,6 +1,7 @@
 <?php
 function render_header($page = '') {
 	global $appcallbackurl;
+	init_page();
 ?>
 
 <div style="border-bottom:1px #cccccc solid;"/>
