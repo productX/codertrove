@@ -139,7 +139,9 @@ function getContactURLsInString($str) {
 	return $result;
 }
 
-function getPicURLGivenEmail($email) {
+/*function getPicURLGivenEmail($email) {
+	global $facebook;
+	
 	$picURL = null;
 	try {
 		$result = $facebook->api("/search?q=$email&type=user");
@@ -158,6 +160,35 @@ function getPicURLGivenEmail($email) {
 	catch (FacebookApiException $e) {
 	}
 	return $picURL;
+}*/
+
+function getPicURLGivenEmail($email) {
+	$str = "http://www.facebook.com/search.php?q=".urlencode($email);
+	$fbPage = get_url_contents($str);
+	$pieces1 = explode("UIImageBlock_ENT_Image\" href=\"http://www.facebook.com/", $fbPage);
+	$picURL = null;
+	if(count($pieces1)) {
+			$pieces2 = explode("\" onclick=\"search_logged_ajax", $pieces1[1]);
+			if(count($pieces2)) {
+					$fbID = $pieces2[0];
+
+					$url = "http://graph.facebook.com/$fbID/picture?type=normal";
+					$crl = curl_init($url);
+					$timeout = 5;
+					curl_setopt ($crl, CURLOPT_HEADER, true);
+					curl_setopt ($crl, CURLOPT_FOLLOWLOCATION, true);
+					curl_setopt ($crl, CURLOPT_RETURNTRANSFER, true);
+					curl_setopt ($crl, CURLOPT_MAXREDIRS, 10);
+					curl_setopt ($crl, CURLOPT_ENCODING, "");
+					curl_setopt ($crl, CURLOPT_CONNECTTIMEOUT, $timeout);
+					curl_setopt ($crl, CURLOPT_USERAGENT, "Mozilla/5.0");
+					$ret = curl_exec($crl);
+					$header = curl_getinfo($crl);
+                    curl_close($crl);
+                    $picURL = $header['url'];
+            }
+    }
+    return $picURL;
 }
 
 /*function getURLIfPresent($str, $baseURLs) {
@@ -189,7 +220,7 @@ function getFirstURLInString($str) {
 
 function getEmailInString($str) {
 	$emails = array();
-	preg_match("/^([a-z0-9])(([-a-z0-9._])*([a-z0-9]))*\@([a-z0-9])*(\.([a-z0-9])([-a-z0-9_-])([a-z0-9])+)*$/i", $str, $emails);
+	preg_match("/[^@ ]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+/", $str, $emails);
 	if(count($emails)) {
 		return $emails[0];
 	}

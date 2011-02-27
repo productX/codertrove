@@ -42,8 +42,15 @@ while(!$done) {
 		$postList = json_decode($jsonStr, true);
 		$nextJSONURL = $baseJSONURL."\\".$postList["nextId"];
 		$items = $postList["items"];
+		if(!is_array($items)) {
+			continue;
+		}
 		for($i=0; $i<count($items); ++$i) {
+			if(!is_array($items[$i])) {
+				continue;
+			}
 			$postID = $items[$i]['id'];
+			echo "\n[$postID]\n";
 			if($postID == $lastPostID) {
 				$done=true;
 				break;
