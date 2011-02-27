@@ -40,10 +40,10 @@ DROP TABLE IF EXISTS `coders`;
 CREATE TABLE `coders` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `shorthandle` char(20) NOT NULL,
-  `picURL` char(256) DEFAULT '',
+  `picURL` char(255) DEFAULT '',
   `fullname` char(70) DEFAULT '',
   `email` char(80) DEFAULT '',
-  `linkedinURL` char(256) DEFAULT '',
+  `linkedinURL` char(255) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
@@ -67,10 +67,10 @@ CREATE TABLE `coderactivity` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `coderid` bigint NOT NULL,
   `sourceid` bigint NOT NULL,
-  `commenttitle` char(256) DEFAULT '',
+  `commenttitle` char(255) DEFAULT '',
   `commentbody` text DEFAULT '',
   `likes` int DEFAULT 0,
-  `commentURL` char(256) DEFAULT '',
+  `commentURL` char(255) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
@@ -80,7 +80,7 @@ DROP TABLE IF EXISTS `codermessages`;
 CREATE TABLE `codermessages` (
   `userid` bigint NOT NULL,
   `coderid` bigint NOT NULL,
-  `contents` text DEFAULT '',
+  `contents` text,
   PRIMARY KEY (`userid`, `coderid`)
 ) ENGINE=MyISAM;
 
@@ -90,19 +90,19 @@ DROP TABLE IF EXISTS `skills`;
 CREATE TABLE `skills` (
   `id` bigint NOT NULL,
   `name` char(40) NOT NULL,
-  `alternatenames` varchar DEFAULT '',
+  `alternatenames` varchar(300),
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
-INSERT INTO `skills` VALUES (1,'PHP');
-INSERT INTO `skills` VALUES (2,'MySQL');
-INSERT INTO `skills` VALUES (3,'Apache');
-INSERT INTO `skills` VALUES (4,'Linux');
-INSERT INTO `skills` VALUES (5,'AppEngine');
-INSERT INTO `skills` VALUES (5,'MemCached', 'memcache');
-INSERT INTO `skills` VALUES (6,'C++');
-INSERT INTO `skills` VALUES (7,'C#');
-INSERT INTO `skills` VALUES (8,'Visual Basic', 'vb');
+INSERT INTO `skills` VALUES (1,'PHP','');
+INSERT INTO `skills` VALUES (2,'MySQL','');
+INSERT INTO `skills` VALUES (3,'Apache','');
+INSERT INTO `skills` VALUES (4,'Linux','');
+INSERT INTO `skills` VALUES (5,'AppEngine','');
+INSERT INTO `skills` VALUES (6,'MemCached', 'memcache');
+INSERT INTO `skills` VALUES (7,'C++','');
+INSERT INTO `skills` VALUES (8,'C#','');
+INSERT INTO `skills` VALUES (9,'Visual Basic', 'vb');
 
 -- SOURCES --
 
@@ -110,8 +110,8 @@ DROP TABLE IF EXISTS `sources`;
 CREATE TABLE `sources` (
   `id` bigint NOT NULL,
   `name` char(40) NOT NULL,
-  `URL` char(256) NOT NULL,
-  `logoURL` char(256) NOT NULL,
+  `URL` char(255) NOT NULL,
+  `logoURL` char(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
