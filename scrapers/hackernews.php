@@ -1,5 +1,6 @@
 <?php
 require_once 'common.php';
+exit;
 
 $facebook = null;
 $skillKeywords = array();

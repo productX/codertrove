@@ -5,6 +5,7 @@ require_once '../site/inc/gen_func.php';
 require_once '../site/inc/functions.php';
 require_once 'lib/fb/facebook.php';
 
+/*
 function setup(&$facebook, &$skillKeywords, $sourceID, &$statusBlob) {
 	$conn = get_db_conn();
 
@@ -158,7 +159,7 @@ function getPicURLGivenEmail($email) {
 	}
 	return $picURL;
 }
-
+*/
 /*function getURLIfPresent($str, $baseURLs) {
 	$urls = getURLsInString($str);
 	$result = null;
@@ -185,7 +186,7 @@ function getFirstURLInString($str) {
 	}
 	return $result;
 }*/
-
+/*
 function getEmailInString($str) {
 	$emails = array();
 	preg_match("/^([a-z0-9])(([-a-z0-9._])*([a-z0-9]))*\@([a-z0-9])*(\.([a-z0-9])([-a-z0-9_-])([a-z0-9])+)*$/i", $str, $emails);
@@ -202,5 +203,5 @@ function doQuery($queryStr) {
 	}
 	return mysql_query($queryStr);
 }
-
+*/
 ?>

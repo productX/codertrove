@@ -2,9 +2,62 @@
 
 
 .title {
-	font-size:84px;
+	font-size:54px;
 
 }
+
+.medium_profile {
+
+	margin: 20px 0px 20px 20px;
+	padding: 20px;
+	height: 100px;
+	width: 250px;
+	border: 1px solid #999;
+	background: #F0F8FF;
+
+
+}
+
+.handle {
+	font-size:12px;
+}
+
+.profile_pic { 
+
+	float:left;
+	height: 100px;
+	width: 60px;
+
+}
+
+a {
+	text-decoration:none
+}
+
+.skills {
+	margin-left:60px;
+}
+
+.activities {
+
+	padding: 0px 0px 10px 0px;
+
+}
+
+.activity {
+
+	border: 1px solid #e0e0e0;
+	background: #FFF8E3;
+	height: 50px;
+	width: 50px;
+
+}
+
+.activity p {
+	text-align: center;
+}
+
+
 
 
 </style>
