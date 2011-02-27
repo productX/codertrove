@@ -1,11 +1,9 @@
 <?php
 
-require_once 'includes/master_inc.php';
+require_once 'inc/master_inc.php';
 
-function init_page($user){
-
+function init_page(){
 	$conn = get_db_conn();
-
 }
 
 
