@@ -110,6 +110,7 @@ function get_url_contents($url){
         curl_setopt ($crl, CURLOPT_URL,$url);
         curl_setopt ($crl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt ($crl, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt ($crl, CURLOPT_USERAGENT, "Mozilla/5.0");
         $ret = curl_exec($crl);
         curl_close($crl);
         return $ret;
