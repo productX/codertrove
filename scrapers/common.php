@@ -2,7 +2,6 @@
 require_once '../site/inc/config.php';
 require_once '../site/inc/db_func.php';
 require_once '../site/inc/gen_func.php';
-require_once '../site/inc/functions.php';
 require_once 'lib/fb/facebook.php';
 
 function setup(&$facebook, &$skillKeywords, $sourceID, &$statusBlob) {
@@ -14,12 +13,12 @@ function setup(&$facebook, &$skillKeywords, $sourceID, &$statusBlob) {
 					'cookie' => false
 					));
 
-	$result = mysql_query("SELECT id, name, alternatenames FROM skills");
+	$result = doQuery("SELECT id, name, alternatenames FROM skills");
 	if(mysql_num_rows($result) != 0) {
 		while($row = mysql_fetch_assoc($result)) {
 			$skillKeywords[$row['name']] = $row['id'];
 			if($row['alternatenames']!="") {
-				$otherKeywords = preg_split(",", $row['alternatenames']);
+				$otherKeywords = explode(",", $row['alternatenames']);
 				for($i=0; $i<count($otherKeywords); ++$i) {
 					$skillKeywords[$otherKeywords[$i]] = $row['id'];
 				}
@@ -27,7 +26,7 @@ function setup(&$facebook, &$skillKeywords, $sourceID, &$statusBlob) {
 		}
 	}
 
-	$result = mysql_query("SELECT statusblob FROM sources where id=$sourceID");
+	$result = doQuery("SELECT statusblob FROM sources where id=$sourceID");
 	if(mysql_num_rows($result) != 1) {
 		exit;
 	}
@@ -48,56 +47,58 @@ function getOrBuildCoderID($siteUserName, $aboutText) {
 		$picURL = getPicURLGivenEmail($email);
 	}
 	
-	$result = mysql_query("SELECT id, handle, email, linkedinURL, twitterURL, fbURL FROM coders WHERE handle='$siteUserName' OR email='$email' OR twitterURL='$twitterURL' OR linkedinURL='$linkedinURL' OR fbURL='$fbURL'");
+	$result = doQuery("SELECT id, handle, email, linkedinURL, twitterURL, fbURL FROM coders WHERE handle='".mysql_real_escape_string($siteUserName)."' OR email='".mysql_real_escape_string($email)."' OR twitterURL='".mysql_real_escape_string($twitterURL)."' OR linkedinURL='".mysql_real_escape_string($linkedinURL)."' OR fbURL='".mysql_real_escape_string($fbURL)."'");
 	$coderID = null;
 	if(mysql_num_rows($result) == 0) {
-		mysql_query("INSERT INTO coders (handle, email, linkedinURL, twitterURL, fbURL, otherURL, picURL) VALUES ('$siteUserName', ".getSQLStrParamStr($email).", ".getSQLStrParamStr($linkedinURL).", ".getSQLStrParamStr($twitterURL).", ".getSQLStrParamStr($fbURL).", ".getSQLStrParamStr($otherURL).", ".getSQLStrParamStr($picURL).")");
+		doQuery("INSERT INTO coders (handle, email, linkedinURL, twitterURL, fbURL, otherURL, picURL) VALUES ('".mysql_real_escape_string($siteUserName)."', ".getSQLStrParamStr($email).", ".getSQLStrParamStr($linkedinURL).", ".getSQLStrParamStr($twitterURL).", ".getSQLStrParamStr($fbURL).", ".getSQLStrParamStr($otherURL).", ".getSQLStrParamStr($picURL).")");
 		$coderID = mysql_insert_id();
 	}
 	else {
 		$setParams = array();
 		if(!is_null($email)) {
-			$setParams[] = "email='$email'";
+			$setParams[] = "email=".getSQLStrParamStr($email);
 		}
 		if(!is_null($linkedinURL)) {
-			$setParams[] = "linkedinURL='$linkedinURL'";
+			$setParams[] = "linkedinURL=".getSQLStrParamStr($linkedinURL);
 		}
 		if(!is_null($twitterURL)) {
-			$setParams[] = "twitterURL='$twitterURL'";
+			$setParams[] = "twitterURL=".getSQLStrParamStr($twitterURL);
 		}
 		if(!is_null($fbURL)) {
-			$setParams[] = "fbURL='$fbURL'";
+			$setParams[] = "fbURL=".getSQLStrParamStr($fbURL);
 		}
 		if(!is_null($otherURL)) {
-			$setParams[] = "otherURL='$otherURL'";
+			$setParams[] = "otherURL=".getSQLStrParamStr($otherURL);
 		}
 		if(!is_null($picURL)) {
-			$setParams[] = "picURL='$picURL'";
+			$setParams[] = "picURL=".getSQLStrParamStr($picURL);
 		}
 		$paramStr = implode(", ", $setParams);
 		if(count($setParams)) {
-			$coderID = mysql_fetch_assoc($result)['id'];
-			mysql_query("UPDATE coders SET $paramStr WHERE id=$coderID");
+			$row = mysql_fetch_assoc($result);
+			$coderID = $row['id'];
+			doQuery("UPDATE coders SET $paramStr WHERE id=$coderID");
 		}
 	}
 	return $coderID;
 }
 
 function logNewCoderActivity($sourceID, $skillKeywords, $buildCoderSourceProfileFunc, $siteUserID, $title, $body, $url, $likes, $replies, $ballsRating, $postTime) {
-	$result = mysql_query("SELECT coderid FROM codersourceprofiles WHERE sourceid=$sourceID AND sourcesiteuserid=$siteUserID");
+	$result = doQuery("SELECT coderid FROM codersourceprofiles WHERE sourceid=$sourceID AND sourcesiteuserid=".getSQLStrParamStr($siteUserID));
 	$coderID = null;
 	if(mysql_num_rows($result) == 0) {
 		$coderID = $buildCoderSourceProfileFunc($sourceID, $siteUserID);	
 	}
 	else {
-		$coderID = mysql_fetch_assoc($result)['coderid'];
+		$row = mysql_fetch_assoc($result);
+		$coderID = $row['coderid'];
 	}
 	
-	mysql_query("INSERT INTO coderactivity (coderid, sourceid, commenttitle, commentbody, numlikes, commentURL, numreplies, ballsrating, posttime) VALUES ($coderID, $sourceID, '$title', '$body', $likes, '$url', $replies, $ballsRating, UNIX_TIMESTAMP($postTime))");
+	doQuery("INSERT INTO coderactivity (coderid, sourceid, commenttitle, commentbody, numlikes, commentURL, numreplies, ballsrating, posttime) VALUES ($coderID, $sourceID, ".getSQLStrParamStr($title).", ".getSQLStrParamStr($body).", $likes, ".getSQLStrParamStr($url).", $replies, $ballsRating, UNIX_TIMESTAMP($postTime))");
 	
 	foreach($skillKeywords as $keyword => $skillID) {
 		if(!(stripos($title.$body, " ".$keyword." ")===false)) {
-			mysql_query("INSERT INTO coderskills (coderid, skillid, expertise, numposts) VALUES ($coderID, $skillID, $likes, 1) ON DUPLICATE KEY UPDATE numposts=numposts+1, expertise=expertise+$likes");	
+			doQuery("INSERT INTO coderskills (coderid, skillid, expertise, numposts) VALUES ($coderID, $skillID, $likes, 1) ON DUPLICATE KEY UPDATE numposts=numposts+1, expertise=expertise+$likes");	
 		}
 	}
 }
@@ -105,7 +106,7 @@ function logNewCoderActivity($sourceID, $skillKeywords, $buildCoderSourceProfile
 function getSQLStrParamStr($str) {
 	$result = "NULL";
 	if(!is_null($str)) {
-		$result = "'$str'";
+		$result = "'".mysql_real_escape_string($str)."'";
 	}
 	return $result;
 }
@@ -113,7 +114,7 @@ function getSQLStrParamStr($str) {
 function getURLsInString($str) {
 	$urls = array();
 	preg_match_all('@((https?://)?([-\w]+\.[-\w\.]+)+\w(:\d+)?(/([-\w/_\.]*(\?\S+)?)?)*)@', $str, $urls);
-	return $urls;
+	return $urls[0];
 }
 
 function getContactURLsInString($str) {
@@ -195,9 +196,9 @@ function getEmailInString($str) {
 	return null;
 }
 
-$queryDebug=true;
+//$queryDebug=true;
 function doQuery($queryStr) {
-	if($queryDebug) {
+	if(true) {
 		echo $queryStr."\n";
 	}
 	return mysql_query($queryStr);

@@ -8,8 +8,8 @@ $statusBlob = null;
 setup($facebook, $skillKeywords, $sourceID, $statusBlob);
 
 function buildCoderSourceProfile($sourceID, $siteUserID) {
-	$jsonStr = get_url_contents("http://api.ihackernews.com/user?id=$siteUserID");	
-	$userData = json_decode($jsonStr);
+	$jsonStr = get_url_contents("http://api.ihackernews.com/profile/$siteUserID");	
+	$userData = json_decode($jsonStr, true);
 	$userName = $userData['username'];
 	$joinDate = siteTimeTextToTimestamp($userData['createdAgo']);
 	$ranking = 0;
@@ -17,12 +17,12 @@ function buildCoderSourceProfile($sourceID, $siteUserID) {
 	$about = $userData['about'];
 
 	$coderID = getOrBuildCoderID($userName, $about);
-	doQuery("INSERT INTO codersourceprofiles (coderid, sourceid, username, joindate, ranking, karma, sourcesiteuserid, about) VALUES ($coderID, $sourceID, '$userName', UNIX_TIMESTAMP($joinDate), $ranking, $karma, '$siteUserID', '$about')");		
+	doQuery("INSERT INTO codersourceprofiles (coderid, sourceid, username, joindate, ranking, karma, sourcesiteuserid, about) VALUES ($coderID, $sourceID, ".getSQLStrParamStr($userName).", UNIX_TIMESTAMP($joinDate), $ranking, $karma, ".getSQLStrParamStr($siteUserID).", ".getSQLStrParamStr($about).")");		
 	return $coderID;
 }
 
 function siteTimeTextToTimestamp($timeText) {
-	return strtotime("-".str_replace($timeText, " ago", ""));
+	return strtotime("-".str_replace(" ago", "", $timeText));
 }
 
 $lastPostID = null;
@@ -39,7 +39,7 @@ $postIDs = array();
 while(!$done) {
 	$jsonStr = get_url_contents($nextJSONURL);
 	if(!is_null($jsonStr) && $jsonStr!="") {
-		$postList = json_decode($jsonStr);
+		$postList = json_decode($jsonStr, true);
 		$nextJSONURL = $baseJSONURL."\\".$postList["nextId"];
 		$items = $postList["items"];
 		for($i=0; $i<count($items); ++$i) {
@@ -64,7 +64,7 @@ while(!$done) {
 for($i=0; $i<count($postIDs); ++$i) {
 	$jsonStr = get_url_contents("http://api.ihackernews.com/post/".$postIDs[$i]);	
 	if(!is_null($jsonStr) && $jsonStr!="") {
-		$post = json_decode($jsonStr);
+		$post = json_decode($jsonStr, true);
 		$comments = $post['comments'];
 		while(count($comments)) {
 			$comment = $comments[0];
@@ -75,7 +75,7 @@ for($i=0; $i<count($postIDs); ++$i) {
 }
 
 if(!is_null($nextLastPostID)) {
-	doQuery("UPDATE sources SET statusblob='".serialize(array('lastPostID' => $nextLastPostID))."' WHERE id=$sourceID");
+	doQuery("UPDATE sources SET statusblob=".getSQLStrParamStr(serialize(array('lastPostID' => $nextLastPostID)))." WHERE id=$sourceID");
 }
 
 ?>
