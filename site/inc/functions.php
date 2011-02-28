@@ -73,7 +73,7 @@ return $tag_cloud;
 }
 
 // Get information for multiple coders by skills
-function getCoderResults($skill,$number){
+function getCoderResults($skill,$number,$page){
 
 	$sql="SELECT id FROM skills WHERE name = '{$skill}'";
 	$rs = mysql_query($sql);
@@ -81,8 +81,15 @@ function getCoderResults($skill,$number){
 		$skillid = $row['id'];
 	}
 
+	if(empty($page) || $page == 1){
+		$offset = 0;
+	}else{
+		$offset = $page = 8;
+	}
+
+
 	$coderArray = array();
-	$sql="SELECT coderskills.coderid, coders.email as email, coderskills.expertise as expertise FROM coderskills,coders WHERE skillid = {$skillid} AND coderskills.coderid = coders.id AND coders.picURL IS NOT NULL ORDER BY expertise, email DESC LIMIT {$number}";
+	$sql="SELECT coderskills.coderid, coders.email as email, coderskills.expertise as expertise FROM coderskills,coders WHERE skillid = {$skillid} AND coderskills.coderid = coders.id AND coders.picURL IS NOT NULL ORDER BY expertise, email DESC LIMIT {$number} OFFSET {$offset}";
 	$rs = mysql_query($sql);
 	while ($row = mysql_fetch_array($rs)){
 		$coderArray[] = $row['coderid'];
