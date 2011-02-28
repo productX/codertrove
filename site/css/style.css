@@ -46,6 +46,11 @@
 	background-image: url('images/Subscription_Button_Small.png');
 	background-repeat: no-repeat;
 	float: left;
+	font-size:20px;
+	text-align:left;
+	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
+	color: white;
+	font-weight: bold;
 }
 
 .plans_block_large_button {
@@ -53,11 +58,16 @@
 	background-image: url('images/Subscription_Button_Large.png');
 	background-repeat: no-repeat;
 	float: left;
+	font-size:20px;
+	text-align:left;
+	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
+	color: white;
+	font-weight: bold;
 }
 
 .plans_block_small_title {
-	margin:-30px 0px 0px 45px;
-	font-size:54px;
+	margin:-20px 0px 0px 45px;
+	font-size:46px;
 	text-align:left;
 	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
 	color: white;
@@ -65,8 +75,8 @@
 }
 
 .plans_block_large_title {
-	margin:24px 0px 0px 108px;
-	font-size:54px;
+	margin:46px 0px 0px 96px;
+	font-size:50px;
 	text-align:left;
 	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
 	color: white;
@@ -75,20 +85,18 @@
 
 .plans_block_small_bodytext {
 	margin:50px 0px 0px 10px;
-	font-size:24px;
+	font-size:22px;
 	text-align:left;
 	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
 	color: white;
-	float: left;
 }
 
 .plans_block_large_bodytext {
-	margin:120px 0px 0px 26px;
+	margin:120px 0px 0px 54px;
 	font-size:24px;
 	text-align:left;
 	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
 	color: white;
-	float: left;
 }
 
 .plans_1week_block_cal_icon {
