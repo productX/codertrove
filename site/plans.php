@@ -12,6 +12,7 @@ function mouseOverCard(cardID) {
 		case 2: blockName="blocks_1month"; moveMultiplier=0; break;
 		case 3: blockName="blocks_3month"; break;
 		case 4: blockName="blocks_1year"; break;
+		break;
 	}
 	if(blockName!="") {
 //		document.getElementById(blockName).style.marginLeft+=moveAmount*moveMultiplier;
