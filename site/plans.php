@@ -1,3 +1,5 @@
+<html><head></head><body>
+
 <script type="text/javascript"><!--
 const int moveAmount=25;
 
@@ -60,7 +62,7 @@ $bodyTextLarge = "- BEST DEAL<br/>- Unlimited access<br/>- Database search<br/>-
 
 		<div class="plans_1month_block" id="blocks_1month" onMouseOver="mouseOverCard(2);" onMouseOut="mouseOutCard(2);">
 			<div class="plans_1month_block_cal_icon"></div>
-			<div class="plans_block_large_title">Months</div>
+			<div class="plans_block_large_title">Month</div>
 			<div class="plans_block_large_bodytext"><?=$bodyTextLarge?></div>
 			<div class="plans_block_large_button">Buy Now</div>
 		</div>
@@ -86,3 +88,5 @@ $bodyTextLarge = "- BEST DEAL<br/>- Unlimited access<br/>- Database search<br/>-
 
 //render_footer();
 ?>
+
+</body></html>
