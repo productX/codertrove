@@ -1,5 +1,106 @@
 <style type="text/css">
 
+.left_title {
+	padding:80px 20px 20px 0px;
+	font-size:54px;
+	text-align:left;
+	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #545556;
+}
+
+.plans_1week_block {
+	padding:150px 0px 0px 80px;
+	background-image: url('images/Subscription_BlueBox_Small.png');
+	cursor: pointer;
+}
+
+.plans_1month_block {
+	padding:70px 0px 0px 230px;
+	background-image: url('images/Subscription_BlueBox_Large.png');
+	cursor: pointer;
+}
+
+.plans_3month_block {
+	padding:150px 0px 0px 510px;
+	background-image: url('images/Subscription_BlueBox_Small.png');
+	cursor: pointer;
+}
+
+.plans_1year_block {
+	padding:150px 0px 0px 720px;
+	background-image: url('images/Subscription_BlueBox_Small.png');
+	cursor: pointer;
+}
+
+.plans_block_small_button {
+	padding:225px 0px 0px 10px;
+	background-image: url('images/Subscription_Button_Small.png');
+}
+
+.plans_block_large_button {
+	padding:336px 0px 0px 26px;
+	background-image: url('images/Subscription_Button_Large.png');
+}
+
+.plans_block_small_title {
+	padding:-30px 0px 0px 45px;
+	font-size:54px;
+	text-align:left;
+	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
+	color: white;
+}
+
+.plans_block_large_title {
+	padding:24px 0px 0px 108px;
+	font-size:54px;
+	text-align:left;
+	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
+	color: white;
+}
+
+.plans_block_small_bodytext {
+	padding:50px 0px 0px 10px;
+	font-size:24px;
+	text-align:left;
+	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
+	color: white;
+}
+
+.plans_block_large_bodytext {
+	padding:120px 0px 0px 26px;
+	font-size:24px;
+	text-align:left;
+	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
+	color: white;
+}
+
+.plans_1week_block_cal_icon {
+	padding:-60px 0px 0px -30px;
+	background-image: url('images/Subscription_Calendar1_Small.png');
+}
+
+.plans_1month_block_cal_icon {
+	padding:-18px 0px 0px 15px;
+	background-image: url('images/Subscription_Calendar1_Large.png');
+}
+
+.plans_3month_block_cal_icon {
+	padding:-60px 0px 0px -30px;
+	background-image: url('images/Subscription_Calendar3_Small.png');
+}
+
+.plans_1year_block_cal_icon {
+	padding:-60px 0px 0px -30px;
+	background-image: url('images/Subscription_Calendar1_Small.png');
+}
+
+/*
+TODO
+- gen_links - no serifs
+- title - 56px, bold
+*/
+
 .main{
 	background-color: #f2eee9;
 }
