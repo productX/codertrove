@@ -49,7 +49,7 @@ function emailCoder($from, $subject, $content){
 
 }
 
-function get_tag_cloud(){
+function get_tag_cloud($factor){
 
 $sql = "SELECT coderskills.coderid, coderskills.skillid, skills.name as name, count(skills.id) as count FROM coderskills, skills WHERE skills.id = coderskills.skillid GROUP BY skills.id ORDER BY count(skills.id) DESC LIMIT 30";
 $rs = mysql_query($sql);
@@ -63,7 +63,7 @@ while ($row = mysql_fetch_array($rs)) {
 	}else{
 		$tag_cloud[$i]['name'] = $row['name'];
 		$tag_cloud[$i]['count'] = $row['count'];
-		$tag_cloud[$i]['font-size'] = round(($i+1)+34-$i*1.7);
+		$tag_cloud[$i]['font-size'] = round(($i+1)+$factor-$i*1.7);
 	}
 	$i++;
 }
