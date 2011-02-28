@@ -58,10 +58,10 @@ render_header();
 		<br/> 
 	</div>
 <?php
-$bodyText1 = "- Unlimited access<br/>- Database search<br/>- Extended profiles<br/>- Contact info<br/><font size='1'>&nbsp;<br/></font><font size='5'>$".getPlanPrice(1)."</font>";
-$bodyText2 = "- <b>BEST DEAL</b><br/>- Unlimited access<br/>- Database search<br/>- Extended profiles<br/>- Contact info<br/><font size='1'>&nbsp;<br/></font><font size='5'>$".getPlanPrice(2)."</font>";
-$bodyText3 = "- Unlimited access<br/>- Database search<br/>- Extended profiles<br/>- Contact info<br/><font size='1'>&nbsp;<br/></font><font size='5'>$".getPlanPrice(3)."</font>";
-$bodyText4 = "- Unlimited access<br/>- Database search<br/>- Extended profiles<br/>- Contact info<br/><font size='1'>&nbsp;<br/></font><font size='5'>$".getPlanPrice(4)."</font>";
+$bodyText1 = "- Unlimited access<br/>- Database search<br/>- Extended profiles<br/>- Contact info<br/>";
+$bodyText2 = "- <b>BEST DEAL</b><br/>- Unlimited access<br/>- Database search<br/>- Extended profiles<br/>- Contact info<br/>";
+$bodyText3 = "- Unlimited access<br/>- Database search<br/>- Extended profiles<br/>- Contact info<br/>";
+$bodyText4 = "- Unlimited access<br/>- Database search<br/>- Extended profiles<br/>- Contact info<br/>";
 ?>
 	<div class="body">
 
@@ -70,6 +70,7 @@ $bodyText4 = "- Unlimited access<br/>- Database search<br/>- Extended profiles<b
 			<div class="plans_block_small_title">Week</div>
 			<div class="plans_block_small_bodytext"><?=$bodyText1?></div>
 			<div class="plans_block_small_button">Buy Now</div>
+			<div class="plans_block_small_pricetext"><?=getPlanPrice(0)?></div>
 		</div>
 
 		<div class="plans_1month_block" id="blocks_1month" onMouseOver="mouseOverCard(2);" onMouseOut="mouseOutCard(2);" onClick="mouseClicked(2);">
@@ -77,6 +78,7 @@ $bodyText4 = "- Unlimited access<br/>- Database search<br/>- Extended profiles<b
 			<div class="plans_block_large_title">Month</div>
 			<div class="plans_block_large_bodytext"><?=$bodyText2?></div>
 			<div class="plans_block_large_button">Buy Now</div>
+			<div class="plans_block_large_pricetext"><?=getPlanPrice(1)?></div>
 		</div>
 
 		<div class="plans_3month_block" id="blocks_3month" onMouseOver="mouseOverCard(3);" onMouseOut="mouseOutCard(3);" onClick="mouseClicked(3);">
@@ -84,6 +86,7 @@ $bodyText4 = "- Unlimited access<br/>- Database search<br/>- Extended profiles<b
 			<div class="plans_block_small_title">Months</div>
 			<div class="plans_block_small_bodytext"><?=$bodyText3?></div>
 			<div class="plans_block_small_button">Buy Now</div>
+			<div class="plans_block_small_pricetext"><?=getPlanPrice(2)?></div>
 		</div>
 
 		<div class="plans_1year_block" id="blocks_1year" onMouseOver="mouseOverCard(4);" onMouseOut="mouseOutCard(4);" onClick="mouseClicked(4);">
@@ -91,6 +94,7 @@ $bodyText4 = "- Unlimited access<br/>- Database search<br/>- Extended profiles<b
 			<div class="plans_block_small_title">Year</div>
 			<div class="plans_block_small_bodytext"><?=$bodyText4?></div>
 			<div class="plans_block_small_button">Buy Now</div>
+			<div class="plans_block_small_pricetext"><?=getPlanPrice(3)?></div>
 		</div>
 		
 	</div>
