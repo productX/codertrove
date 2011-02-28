@@ -23,9 +23,16 @@
 }
 
 .expanded_folder{
-
 	background-image: url('images/Ad_BlueFolder.png');
 	height:251px;
+	width:437px;
+}
+
+.compact_folder{
+
+	background-image: url('images/Ad_BlueFolder_small.png');
+	margin-top:20px;
+	height:175px;
 	width:437px;
 
 }
@@ -38,6 +45,12 @@
 }
 
 .folder_container_internal{
+
+	height: 250px;
+	width: 400px;
+
+}
+.compact_folder_container_internal{
 
 	height: 250px;
 	width: 400px;
@@ -96,6 +109,25 @@ width:380px;
 	font-size:11px;
 	text-align:center;
 }
+
+.compact_folder_photo{
+
+	height:100px;
+	width:73px;
+	background-color:white;
+	position:relative;
+	top:35px;
+	z-index:1;
+	margin-left:20px;
+
+}
+
+.compact_folder_photo a {
+
+	font-size:11px;
+	text-align:center;
+}
+
 
 .tag_cloud {
 
