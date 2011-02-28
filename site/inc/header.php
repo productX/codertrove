@@ -14,8 +14,6 @@ function render_header($page = '') {
 	<a class="gen_links" href="about_us.php">About Us</a>
 </div>
 
-
-
 <?
 }
 ?>
