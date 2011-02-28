@@ -7,7 +7,6 @@ function mouseOverCard(cardID) {
 	blockName = "";
 	moveMultiplier = 1;
 	switch(cardID) {
-		break;
 		case 1: blockName="blocks_1week"; moveMultiplier=-1; break;
 		case 2: blockName="blocks_1month"; moveMultiplier=0; break;
 		case 3: blockName="blocks_3month"; break;
