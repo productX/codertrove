@@ -3,13 +3,11 @@ require_once 'inc/master_inc.php';
 render_header();
 
 $skill = $_REQUEST['tech'];
-$page = $_REQUEST['page'];
 
 $testSearch = searchForCoders("ios php python developer");
 $tag_cloud = get_tag_cloud(26);
 
-
-$info = getCoderResults($skill, 8, $page);
+$info = getCoderResults($skill, 8);
 
 //echo "<pre>";
 //print_r($info);
@@ -105,10 +103,6 @@ $someNum = rand(1,10);
 		</div>
 
 	</div>
-	<div style="width:500px; float:left; display:inline;"><?php if($page<2){}else{?><a class="prev" href="http://codertrove.com/top_coders.php?tech=<?=$tech?>?page=<?=$page-1?>">prev</a><?}?>
-<a class="next" href="http://codertrove.com/top_coders.php?tech=<?=$skill?>?page=<?=$page+1?>">next</a></div>
-
-
 	<img style="background-repeat:repeat-x; background-color:#80b0e4; width:990px;" src="images/Ad_WaveBackground.png"/>
 
 </div>
