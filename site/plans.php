@@ -1,10 +1,3 @@
-<?php
-require_once 'inc/master_inc.php';
-
-render_header();
-
-?>
-
 <script type="text/javascript"><!--
 const int moveAmount=25;
 
@@ -38,6 +31,13 @@ function mouseOutCard(cardID) {
 	}
 }
 --></script>
+
+<?php
+require_once 'inc/master_inc.php';
+
+render_header();
+
+?>
 
 <div class="main">
 
