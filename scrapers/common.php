@@ -83,11 +83,11 @@ function getOrBuildCoderID($siteUserName, $aboutText) {
 	return $coderID;
 }
 
-function logNewCoderActivity($sourceID, $skillKeywords, $buildCoderSourceProfileFunc, $siteUserID, $title, $body, $url, $likes, $replies, $ballsRating, $postTime) {
+function logNewCoderActivity($sourceID, $skillKeywords, $buildCoderSourceProfileFunc, $siteUserID, $stashVar, $title, $body, $url, $likes, $replies, $ballsRating, $postTime) {
 	$result = doQuery("SELECT coderid FROM codersourceprofiles WHERE sourceid=$sourceID AND sourcesiteuserid=".getSQLStrParamStr($siteUserID));
 	$coderID = null;
 	if(mysql_num_rows($result) == 0) {
-		$coderID = $buildCoderSourceProfileFunc($sourceID, $siteUserID);	
+		$coderID = $buildCoderSourceProfileFunc($sourceID, $siteUserID, $stashVar);	
 	}
 	else {
 		$row = mysql_fetch_assoc($result);

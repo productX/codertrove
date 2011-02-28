@@ -8,16 +8,15 @@ $sourceID = 3;
 $statusBlob = null;
 setup($facebook, $skillKeywords, $sourceID, $statusBlob);
 
-$userDataGlobal = array();
-function buildCoderSourceProfile($sourceID, $siteUserID) {
-	global $userDataGlobal; //hack
-	var_dump($userDataGlobal);
+function buildCoderSourceProfile($sourceID, $siteUserID, $stashVar) {
+	$userData = $stashVar;
+	var_dump($userData);
 
-	$userName = $siteUserID; //$userDataGlobal['name'];
-	$joinDate = strtotime($userDataGlobal['created_at']);
+	$userName = $siteUserID; //$userData['name'];
+	$joinDate = strtotime($userData['created_at']);
 	$ranking = 0;
-	$karma = $userDataGlobal['followers_count'];
-	$about = $userDataGlobal['name']." , ".$useDataGlobal['company']." , ".$userDataGlobal['location']." , ".$userDataGlobal['blog']." , ".$userDataGlobal['email'];
+	$karma = $userData['followers_count'];
+	$about = $userData['name']." , ".$userData['company']." , ".$userData['location']." , ".$userData['blog']." , ".$userData['email'];
 
 	$coderID = getOrBuildCoderID($userName, $about);
 	doQuery("INSERT INTO codersourceprofiles (coderid, sourceid, username, joindate, ranking, karma, sourcesiteuserid, about) VALUES ($coderID, $sourceID, ".getSQLStrParamStr($userName).", UNIX_TIMESTAMP($joinDate), $ranking, $karma, ".getSQLStrParamStr($siteUserID).", ".getSQLStrParamStr($about).")");		
@@ -26,7 +25,7 @@ function buildCoderSourceProfile($sourceID, $siteUserID) {
 
 
 $userIDs=array();
-for($numFollowers=2; $numFollowers<3; ++$numFollowers) {
+for($numFollowers=3; $numFollowers<4; ++$numFollowers) {
 	echo "\n\nFOLLOWERS = $numFollowers\n\n";
 	$done = false;
 	for($page=1; !$done; ++$page) {
@@ -48,6 +47,7 @@ for($numFollowers=2; $numFollowers<3; ++$numFollowers) {
 	}
 }
 
+//$userIDs = array_reverse($userIDs);
 for($i=0; $i<count($userIDs); ++$i) {
 	echo "SET UP USER: $i/".count($userIDs)."\n";
 	$userID = $userIDs[$i];
@@ -55,12 +55,25 @@ for($i=0; $i<count($userIDs); ++$i) {
 	$userDataList = json_decode(get_url_contents($userURL), true);
 //	var_dump($userDataList);
 	if(is_array($userDataList) && !is_null($userDataList['user'])) {
-		$userDataGlobal = $userData = $userDataList[$user];
-		$likes = ($userData['followers_count']-3)+$userData['public_repo_count']*5;
-		$likes = ($likes<0)?0:$likes;
-		$replies = 0;
-		//logNewCoderActivity($sourceID, $skillKeywords, $buildCoderSourceProfileFunc, $siteUserID, $title, $body, $url, $likes, $replies, $ballsRating, $postTime)
-		logNewCoderActivity($sourceID, $skillKeywords, "buildCoderSourceProfile", $userID, "", "", "http://github.com/$userID", $likes, $replies, 0, time());
+		$userData = $userDataList[$user];
+		
+		$repoListURL = "http://github.com/api/v2/json/repos/show/$userID";
+		$repoList = json_decode(get_url_contents($repoListURL), true);
+		if(is_array($repoList) && !is_null($repoList['repositories'])) {
+			for($j=0; $j<count($repoList['repositories']); ++$j) {
+				$repo = $repoList['repositories'][$j];
+				
+				$title=$repo['name'];
+				$body=$repo['description'];
+				$url=$repo['url'];
+				$likes = $repo['watchers'];
+				$replies = $repo['forks'];
+				$createdAt = strtotime($repo['created_at']);
+
+				//logNewCoderActivity($sourceID, $skillKeywords, $buildCoderSourceProfileFunc, $siteUserID, $stashVar, $title, $body, $url, $likes, $replies, $ballsRating, $postTime)
+				logNewCoderActivity($sourceID, $skillKeywords, "buildCoderSourceProfile", $userID, $userData, $title, $body, $url, $likes, $replies, 0, $createdAt);
+			}
+		}
 	}
 }
 

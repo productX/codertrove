@@ -7,7 +7,7 @@ $sourceID = 1;
 $statusBlob = null;
 setup($facebook, $skillKeywords, $sourceID, $statusBlob);
 
-function buildCoderSourceProfile($sourceID, $siteUserID) {
+function buildCoderSourceProfile($sourceID, $siteUserID, $stashVar) {
 	$jsonStr = get_url_contents("http://api.ihackernews.com/profile/$siteUserID");	
 	$userData = json_decode($jsonStr, true);
 	$userName = $userData['username'];
@@ -60,7 +60,7 @@ while(!$done) {
 			}
 			$postIDs[] = $postID;
 			$timestamp = siteTimeTextToTimestamp($items[$i]['postedAgo']);
-			logNewCoderActivity($sourceID, $skillKeywords, "buildCoderSourceProfile", $items[$i]['postedBy'], $items[$i]['title'], "Link: ".$items[$i]['url'], "http://news.ycombinator.com/item?id=".$postID, $items[$i]['points'], $items[$i]['commentCount'], 2, $timestamp);
+			logNewCoderActivity($sourceID, $skillKeywords, "buildCoderSourceProfile", $items[$i]['postedBy'], false, $items[$i]['title'], "Link: ".$items[$i]['url'], "http://news.ycombinator.com/item?id=".$postID, $items[$i]['points'], $items[$i]['commentCount'], 2, $timestamp);
 		}
 	}
 	else {
@@ -75,7 +75,7 @@ for($i=0; $i<count($postIDs); ++$i) {
 		$comments = $post['comments'];
 		while(count($comments)) {
 			$comment = $comments[0];
-			logNewCoderActivity($sourceID, $skillKeywords, "buildCoderSourceProfile", $comment['postedBy'], "", $comment['comment'], "http://news.ycombinator.com/item?id=".$comment['id'], $comment['points'], count($comment['children']), 1, siteTimeTextToTimestamp($comment['postedAgo']));
+			logNewCoderActivity($sourceID, $skillKeywords, "buildCoderSourceProfile", $comment['postedBy'], false, "", $comment['comment'], "http://news.ycombinator.com/item?id=".$comment['id'], $comment['points'], count($comment['children']), 1, siteTimeTextToTimestamp($comment['postedAgo']));
 			$comments = array_merge($comments, $comment['children']);
 		}
 	}
