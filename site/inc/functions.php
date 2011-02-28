@@ -72,6 +72,31 @@ return $tag_cloud;
 
 }
 
+// Get information for multiple coders by skills
+function getCoderResults($skill,$number){
+
+	$sql="SELECT id FROM skills WHERE name = '{$skill}'";
+	$rs = mysql_query($sql);
+        while ($row = mysql_fetch_array($rs)) {
+		$skillid = $row['id'];
+	}
+
+	$coderArray = array();
+	$sql="SELECT coderskills.coderid, coders.email as email, coderskills.expertise as expertise FROM coderskills,coders WHERE skillid = {$skillid} AND coderskills.coderid = coders.id AND coders.picURL IS NOT NULL ORDER BY expertise, email DESC LIMIT {$number}";
+	$rs = mysql_query($sql);
+	while ($row = mysql_fetch_array($rs)){
+		$coderArray[] = $row['coderid'];
+	}
+
+	$displayCoders = array();
+	foreach($coderArray as $coder){
+
+		$displayCoders[] = getUserInfo($coder);
+	}
+
+	return $displayCoders;
+
+}
 
 
 // Get the information for a particular coder including user interests
@@ -80,17 +105,80 @@ function getUserInfo($coderID){
 	$sql = "SELECT * FROM coders WHERE id = {$coderID}";
 	$rs = mysql_query($sql);
 
-	$coderID = array();
+	$coderInfo = array();
 	while ($row = mysql_fetch_array($rs)) {
-		$coderID['handle'] = $row['shorthandle'];
-		$coderID['pic'] = $row['picURL'];
-		$coderID['fullname'] = $row['fullname'];
-		$coderID['email'] = $row['email'];
-		$coderID['linkedinURL'] = $row['linkedinURL'];
+		$coderInfo['handle'] = $row['shorthandle'];
+		$coderInfo['pic'] = $row['picURL'];
+		$coderInfo['fullname'] = $row['fullname'];
+		$coderInfo['email'] = $row['email'];
+		$coderInfo['linkedinURL'] = $row['linkedinURL'];
 	}
 
-	return $coderID;
+	// Get all the user's skills
+	$sql = "SELECT skillid,expertise,numposts FROM coderskills WHERE coderid = {$coderID}";
+	$rs = mysql_query($sql);
+	$skillsFull = array();
+	$t = 1;
+	while ($row = mysql_fetch_array($rs)) {
+		$sql = "SELECT name FROM skills WHERE id = {$row['skillid']}";
+		$new_rs = mysql_query($sql);
+		while($new_row = mysql_fetch_array($new_rs)){
+			$skillsFull[$t]['name'] = $new_row['name'];
+		}
+		$skillsFull[$t]['expertise'] = $row['expertise'];
+		$skillsFull[$t]['numposts'] = $row['numposts'];
+
+		$t++;
+	}
+
+	$coderInfo['skills'] = $skillsFull;
+	
+	// Get all the user's sources
+	$sql = "SELECT sourceid,ranking,karma FROM codersourceprofiles WHERE coderid = {$coderID}";
+	$rs = mysql_query($sql);
+	$sourceInfo = array();
+	$u = 1;
+	while ($row = mysql_fetch_array($rs)) {
+		$sql = "SELECT name FROM sources WHERE id = {$row['sourceid']}";
+		$new_rs = mysql_query($sql);
+		while($new_row = mysql_fetch_array($new_rs)){
+			$sourceInfo[$u]['name'] = $new_row['name'];
+		}
+
+		$sourceInfo[$u]['ranking'] = $row['ranking'];
+		$sourceInfo[$u]['karma'] = $row['karma'];
+		$u++;
+	}
+
+	$coderInfo['sources'] = $sourceInfo;
+
+
+	// Get all the user's activities
+	$sql = "SELECT sourceid, commenttitle, commentbody, commentURL, posttime FROM coderactivity WHERE coderid = {$coderID}";
+	$activityInfo = array();
+	$p = 1;
+	$rs = mysql_query($sql);
+	while($row = mysql_fetch_array($rs)) {
+		$sql = "SELECT name FROM sources WHERE id = {$row['sourceid']}";
+		$new_rs = mysql_query($sql);
+		while($new_row = mysql_fetch_array($new_rs)){
+			$activityInfo[$p]['name'] = $new_row['name'];
+		}
+		$activityInfo[$p]['commenttitle'] = $row['commenttitle'];
+		$activityInfo[$p]['commentbody'] = $row['commentbody'];
+		$activityInfo[$p]['commentURL'] = $row['commentURL'];
+		$activityInfo[$p]['posttime'] = $row['posttime'];	
+
+		$p++;
+	}
+
+	$coderInfo['activity'] = $activityInfo;
+
+
+	return $coderInfo;
 }
+
+
 
 // Search for a particular key word, key word combinationi, sort the 
 
