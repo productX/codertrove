@@ -10,88 +10,108 @@
 }
 
 .plans_1week_block {
-	padding:150px 0px 0px 80px;
+	margin:150px 0px 0px 100px;
 	background-image: url('images/Subscription_BlueBox_Small.png');
+	background-repeat: no-repeat;
 	cursor: pointer;
+	float: left;
 }
 
 .plans_1month_block {
-	padding:70px 0px 0px 230px;
+	margin:70px 0px 0px 70px;
 	background-image: url('images/Subscription_BlueBox_Large.png');
+	background-repeat: no-repeat;
 	cursor: pointer;
+	float: left;
 }
 
 .plans_3month_block {
-	padding:150px 0px 0px 510px;
+	margin:150px 0px 0px 100px;
 	background-image: url('images/Subscription_BlueBox_Small.png');
+	background-repeat: no-repeat;
 	cursor: pointer;
+	float: left;
 }
 
 .plans_1year_block {
-	padding:150px 0px 0px 720px;
+	margin:150px 0px 0px 100px;
 	background-image: url('images/Subscription_BlueBox_Small.png');
+	background-repeat: no-repeat;
+	float: left;
 	cursor: pointer;
 }
 
 .plans_block_small_button {
-	padding:225px 0px 0px 10px;
+	margin:225px 0px 0px 10px;
 	background-image: url('images/Subscription_Button_Small.png');
+	background-repeat: no-repeat;
+	float: left;
 }
 
 .plans_block_large_button {
-	padding:336px 0px 0px 26px;
+	margin:336px 0px 0px 26px;
 	background-image: url('images/Subscription_Button_Large.png');
+	background-repeat: no-repeat;
+	float: left;
 }
 
 .plans_block_small_title {
-	padding:-30px 0px 0px 45px;
+	margin:-30px 0px 0px 45px;
 	font-size:54px;
 	text-align:left;
 	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
 	color: white;
+	float: left;
 }
 
 .plans_block_large_title {
-	padding:24px 0px 0px 108px;
+	margin:24px 0px 0px 108px;
 	font-size:54px;
 	text-align:left;
 	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
 	color: white;
+	float: left;
 }
 
 .plans_block_small_bodytext {
-	padding:50px 0px 0px 10px;
+	margin:50px 0px 0px 10px;
 	font-size:24px;
 	text-align:left;
 	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
 	color: white;
+	float: left;
 }
 
 .plans_block_large_bodytext {
-	padding:120px 0px 0px 26px;
+	margin:120px 0px 0px 26px;
 	font-size:24px;
 	text-align:left;
 	font-family: “Myriad Pro”, Arial, Helvetica, sans-serif;
 	color: white;
+	float: left;
 }
 
 .plans_1week_block_cal_icon {
-	padding:-60px 0px 0px -30px;
+	margin:-60px 0px 0px -30px;
 	background-image: url('images/Subscription_Calendar1_Small.png');
+	background-repeat: no-repeat;
+	float: left;
 }
 
 .plans_1month_block_cal_icon {
-	padding:-18px 0px 0px 15px;
+	margin:-18px 0px 0px 15px;
 	background-image: url('images/Subscription_Calendar1_Large.png');
+	background-repeat: no-repeat;
+	float: left;
 }
 
 .plans_3month_block_cal_icon {
-	padding:-60px 0px 0px -30px;
+	margin:-60px 0px 0px -30px;
 	background-image: url('images/Subscription_Calendar3_Small.png');
 }
 
 .plans_1year_block_cal_icon {
-	padding:-60px 0px 0px -30px;
+	margin:-60px 0px 0px -30px;
 	background-image: url('images/Subscription_Calendar1_Small.png');
 }
 

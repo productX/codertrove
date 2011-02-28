@@ -14,7 +14,7 @@ render_header();
 $bodyTextSmall = "- Unlimited access<br/>- Database search<br/>- Extended profiles<br/>- Contact info";
 $bodyTextLarge = "- BEST DEAL<br/>- Unlimited access<br/>- Database search<br/>- Extended profiles<br/>- Contact info";
 ?>
-	<script language="javascript">
+	<script type="text/javascript"><!--
 	const int moveAmount=25;
 	
 	function mouseOverCard(cardID) {
@@ -46,7 +46,8 @@ $bodyTextLarge = "- BEST DEAL<br/>- Unlimited access<br/>- Database search<br/>-
 			document.getElementById(blockName).style.left-=moveAmount*moveMultiplier;
 		}
 	}
-	</script>
+	--></script>
+
 	<div class="body">
 
 		<div class="plans_1week_block" id="blocks_1week" onMouseOver="mouseOverCard(1);" onMouseOut="mouseOutCard(1);">
