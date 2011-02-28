@@ -73,10 +73,11 @@ function getOrBuildCoderID($siteUserName, $aboutText) {
 		if(!is_null($picURL)) {
 			$setParams[] = "picURL=".getSQLStrParamStr($picURL);
 		}
+
 		$paramStr = implode(", ", $setParams);
+		$row = mysql_fetch_assoc($result);
+		$coderID = $row['id'];
 		if(count($setParams)) {
-			$row = mysql_fetch_assoc($result);
-			$coderID = $row['id'];
 			doQuery("UPDATE coders SET $paramStr WHERE id=$coderID");
 		}
 	}

@@ -1,4 +1,4 @@
-<?php
+[B<?php
 require_once 'common.php';
 
 $facebook = null;
@@ -41,6 +41,7 @@ while(!$done) {
 	if(!is_null($jsonStr) && $jsonStr!="") {
 		$postList = json_decode($jsonStr, true);
 		$nextJSONURL = $baseJSONURL."\\".$postList["nextId"];
+echo "\n\n====================\nNextID=".$postList['nextId']."\n==================\n";
 		$items = $postList["items"];
 		if(!is_array($items)) {
 			continue;
@@ -61,6 +62,20 @@ while(!$done) {
 			$postIDs[] = $postID;
 			$timestamp = siteTimeTextToTimestamp($items[$i]['postedAgo']);
 			logNewCoderActivity($sourceID, $skillKeywords, "buildCoderSourceProfile", $items[$i]['postedBy'], false, $items[$i]['title'], "Link: ".$items[$i]['url'], "http://news.ycombinator.com/item?id=".$postID, $items[$i]['points'], $items[$i]['commentCount'], 2, $timestamp);
+
+			if($items[$i]['commentCount']>0) {
+				$jsonStr = get_url_contents("http://api.ihackernews.com/post/".$postID);	
+				if(!is_null($jsonStr) && $jsonStr!="") {
+					$post = json_decode($jsonStr, true);
+					$comments = $post['comments'];
+					while(count($comments)) {
+						$comment = array_shift($comments);
+echo "====(".$comment['id'].")====>";
+						logNewCoderActivity($sourceID, $skillKeywords, "buildCoderSourceProfile", $comment['postedBy'], false, "", $comment['comment'], "http://news.ycombinator.com/item?id=".$comment['id'], $comment['points'], count($comment['children']), 1, siteTimeTextToTimestamp($comment['postedAgo']));
+						$comments = array_merge($comments, $comment['children']);
+					}
+				}
+			}
 		}
 	}
 	else {
@@ -68,18 +83,6 @@ while(!$done) {
 	}
 }
 
-for($i=0; $i<count($postIDs); ++$i) {
-	$jsonStr = get_url_contents("http://api.ihackernews.com/post/".$postIDs[$i]);	
-	if(!is_null($jsonStr) && $jsonStr!="") {
-		$post = json_decode($jsonStr, true);
-		$comments = $post['comments'];
-		while(count($comments)) {
-			$comment = $comments[0];
-			logNewCoderActivity($sourceID, $skillKeywords, "buildCoderSourceProfile", $comment['postedBy'], false, "", $comment['comment'], "http://news.ycombinator.com/item?id=".$comment['id'], $comment['points'], count($comment['children']), 1, siteTimeTextToTimestamp($comment['postedAgo']));
-			$comments = array_merge($comments, $comment['children']);
-		}
-	}
-}
 
 if(!is_null($nextLastPostID)) {
 	doQuery("UPDATE sources SET statusblob=".getSQLStrParamStr(serialize(array('lastPostID' => $nextLastPostID)))." WHERE id=$sourceID");
