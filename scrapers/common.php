@@ -118,6 +118,7 @@ function getURLsInString($str) {
 }
 
 function getContactURLsInString($str) {
+	echo "|".$str."|\n";
 	$urls = getURLsInString($str);
 	$contactBaseURLs = array("facebook"=>array("facebook.com"), "twitter"=>array("twitter.com"), "linkedin"=>array("linkedin.com", "linkd.in"));
 	$result = array("facebook"=>null, "twitter"=>null, "linkedin"=>null, "other"=>null);
