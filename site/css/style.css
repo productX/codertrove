@@ -61,11 +61,12 @@
 }
 
 .sample_comment{
-
-	background-color:white;
-	color:#444;
-	height:100px;
-	width:300px;
+background-color:white;
+color:#444444;
+height:70px;
+margin:75px 0 0 20px;
+padding:6px;
+width:380px;
 
 }
 
