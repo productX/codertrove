@@ -1,20 +1,20 @@
-<html><head></head><body>
+<html><head>
 
-<script type="text/javascript"><!--
-const int moveAmount=25;
+<script type="text/javascript">
+moveAmount = 25;
 
 function mouseOverCard(cardID) {
 	blockName = "";
 	moveMultiplier = 1;
 	switch(cardID) {
+		break;
 		case 1: blockName="blocks_1week"; moveMultiplier=-1; break;
 		case 2: blockName="blocks_1month"; moveMultiplier=0; break;
-		case 3: blockName="blocks_3months"; break;
+		case 3: blockName="blocks_3month"; break;
 		case 4: blockName="blocks_1year"; break;
-		break;
 	}
 	if(blockName!="") {
-		document.getElementById(blockName).style.left+=moveAmount*moveMultiplier;
+		document.getElementById(blockName).style.marginLeft+=moveAmount*moveMultiplier;
 	}
 }
 
@@ -22,17 +22,18 @@ function mouseOutCard(cardID) {
 	blockName = "";
 	moveMultiplier = 1;
 	switch(cardID) {
+		break;
 		case 1: blockName="blocks_1week"; moveMultiplier=-1; break;
 		case 2: blockName="blocks_1month"; moveMultiplier=0; break;
-		case 3: blockName="blocks_3months"; break;
+		case 3: blockName="blocks_3month"; break;
 		case 4: blockName="blocks_1year"; break;
-		break;
 	}
 	if(blockName!="") {
-		document.getElementById(blockName).style.left-=moveAmount*moveMultiplier;
+		document.getElementById(blockName).style.marginLeft-=moveAmount*moveMultiplier;
 	}
 }
---></script>
+</script>
+</head><body>
 
 <?php
 require_once 'inc/master_inc.php';

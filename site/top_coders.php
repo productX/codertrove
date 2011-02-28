@@ -1,18 +1,27 @@
 <?php
 require_once 'inc/master_inc.php';
-
 render_header();
 
-$tech = $_REQUEST['tech'];
+$skill = $_REQUEST['tech'];
 
 $testSearch = searchForCoders("ios php python developer");
 $tag_cloud = get_tag_cloud(26);
-//print_r($tag_cloud);
+
+$info = getCoderResults($skill, 8);
+
+//echo "<pre>";
+//print_r($info);
+//echo "</pre>";
+
+$numSkills = count($info[0]['skills']);
+$numSources = count($info[0]['sources']);
+$numPeople = count($info) - 1;
+
 ?>
 <div class="main">
 
 	<div class="title">
-		The web's <span class="highlight">Top <?=$tech?> Coders </span>
+		The web's <span class="highlight">Top <?=$skill?> Coders </span>
 		<br/> 
 		<span class="subtext">Gleaned by analysis of millions of online documents, comments, posts and discussions</span>
 	</div>
@@ -26,42 +35,51 @@ $tag_cloud = get_tag_cloud(26);
 				<div class="expanded_folder">
 					<div class="folder_container_internal">
 					<div class="expanded_folder_photo">
-						<img class="coder_thumb_ad" src='http://profile.ak.fbcdn.net/hprofile-ak-snc4/50111_13900723_3002705_s.jpg'/>
-						<div class="name_folder_ad">Roger Dickey<br/>
-							<a href="http://codertrove.com">Connecticut</a>
+					<img class="coder_thumb_ad" src='<?=$info[0]['pic']?>'/>
+						<div class="name_folder_ad"><?=substr($info[0]['handle'],1,5)?><br/>
+							<a href="http://codertrove.com" name="location"></a>
 						</div>
 					</div>
 					<div class="skill_folder_ad">
-						<p>Skills: PHP, Python, Ruby, iOS, Android</p>
-						<br/>	
-						<div class="coder_small_source_ad">
-							<p>Quora<br/>(13)</p>
+					<p>Skills: <?php for($i=1;$i<$numSkills;$i++){echo $info[0]['skills'][$i]['name']; echo ", ";}?></p>
+						<br/>
+
+ <?php for($i=0;$i<$numSources;$i++){?>
+ 						<div class="coder_small_source_ad">
+						<p><?=$info[0]['sources'][$i+1]['name'];?> <br/>(<?=$info[0]['sources'][$i+1]['karma'];?>)</p>
 						</div> 
-						<div class="coder_small_source_ad">
-							<p>Stack Overflow<br/>(13)</p>
-						</div> 
-						<div class="coder_small_source_ad">
-							<p>Github<br/>(13)</p>
-						</div> 
-						<div class="coder_small_source_ad">
-							<p>Hacker News<br/>(13)</p>
-						</div> 
+<?}?>
 					</div>
 					<div class="sample_comment">
-						<p>"ha ha ha, that was the funniest flame war e-vah! Can't believe paul graham fell for it wa ha ha ha ha frrrp! :D"</p>	
+					<p>"<?php if(strlen($info[0]['activity'][1]['commentbody']) > 140){ substr($info[0]['activity'][1]['commentbody'],0,140);?>..<?}else{ echo $info[0]['activity'][1]['commentbody']; }?>"</p>	
 					</div>					
+					</div>
+				</div>
 
+ <?php for($i=1;$i<$numPeople;$i++){?>
+				<div class="compact_folder">
+					<div class="compact_folder_container_internal">
+					<div class="compact_folder_photo">
+						<img class="coder_thumb_ad" src='<?=$info[$i]['pic']?>'/>
+						<div class="name_folder_ad"><?=substr($info[$i]['handle'],1,5)?><br/>
+							<a href="http://codertrove.com"></a>
+						</div>
+					</div>
+					<div class="skill_folder_ad">
+						<p>Skills: <?php for($d=1;$d<$numSkills;$d++){echo $info[$i]['skills'][$d]['name']; echo ", ";}?></p>
+						<br/>	
+ <?php for($g=0;$g<$numSources;$g++){?>
+						<div class="coder_small_source_ad">
+							<p><?=$info[$i]['sources'][$g+1]['name'];?> <br/>(<?=$info[$i]['sources'][$g+1]['karma'];?>)</p>
+						</div> 
+<?}?>
 
 					</div>
-
-
+					</div>
 				</div>
+<?}?>
 			</div>
-
-
-
 		</div>
-
 
 		<div class="right_block">
 		<div class="search_area">
@@ -77,7 +95,7 @@ $tag_cloud = get_tag_cloud(26);
 		<div class="tag_cloud_small" style="float:left;">
 <?php 
 	foreach($tag_cloud as $tag){
-		?> <a href="http://codertrove.com/<?=$tag['name']?>" style="font-size:<?=$tag['font-size']?>; <?php 
+		?> <a href="http://codertrove.com/top_coders.php?tech=<?=$tag['name']?>" style="font-size:<?=$tag['font-size']?>; <?php 
 $someNum = rand(1,10);
 ?>; margin-left:<?=$someNum?>px;"><?=$tag['name']?></a>
 <?}?>

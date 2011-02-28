@@ -36,21 +36,6 @@ $someNum = rand(1,10);
 <?}?>
 		</div>
 		</div>
-		<div class="sample_coders">
-			<?php for ($k = 1; $k<4; $k++){?>
-			<div class="coder_box_small">
-				<div class="coder_pic">
-					<img class="coder_thumb" src='http://profile.ak.fbcdn.net/hprofile-ak-snc4/50111_13900723_3002705_s.jpg'/>
-					<span style="color:white;">PHP, Python</span><br/>
-					<div class="coder_small_source">
-						<p>Quora<br/>(13)</p>
-						
-					</div>
-				</div>
-			</div>
-		<?}?>	
-		</div>
-
 	</div>
 	<img style="background-repeat:repeat-x; background-color:#80b0e4; width:990px;" src="images/Ad_WaveBackground.png"/>
 
