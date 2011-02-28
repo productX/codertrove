@@ -437,6 +437,21 @@ width:380px;
 	width:20px;
 }
 
+.prev{
+	color:white;
+	margin-left:50px;
+	font-size:20px;
+}
+
+
+.next{
+	color:white;
+	font-size:20px;
+	margin-left:400px;
+	position:relative;
+	bottom:24px;
+}
+
 
 .body {
 
