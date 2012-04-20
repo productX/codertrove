@@ -1,4 +1,5 @@
-<?
+<?php
+
 
 function get_db_conn() {
 	$conn = mysql_connect($GLOBALS['db_ip'], $GLOBALS['db_user'], $GLOBALS['db_pass']);
@@ -37,35 +38,34 @@ function log_user_session($user){
 	}
 }
 
-// Add user to new_users_log table if not already in there
 function get_user_info() {
+	                                                                                                                             
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $ips = explode('.', $ip);                                                                                    
+        $ip_num = $ips[3] + $ips[2] * 256 + $ips[1] * 256 * 256 + $ips[0] * 256 * 256 * 256;                         
+					                
+        $result2 = mysql_query("SELECT cntry_name FROM ip_to_location WHERE ip_from < {$ip_num} AND ip_to > {$ip_num}");                      
 
-		$ip = $_SERVER['REMOTE_ADDR'];
-		$ips = explode('.', $ip);
-		$ip_num = $ips[3] + $ips[2] * 256 + $ips[1] * 256 * 256 + $ips[0] * 256 * 256 * 256; 
-
-		$result2 = mysql_query("SELECT cntry_name FROM ip_to_location WHERE ip_from < {$ip_num} AND ip_to > {$ip_num}");
-
-		$country_name = mysql_fetch_array($result2);
-
-		$tv = $result[0]['tv'];
-		$music = $result[0]['music'];
-		$movies = $result[0]['movies'];
-		$interests = $result[0]['interests'];
-		$activities = $result[0]['activities'];
-		$books = $result[0]['books'];
-		$country = $country_name[0];
-
-//	 mysql_query("UPDATE users SET hometown = '{$home_city}', current_location = '{$cur_city}', network = '{$affiliation}', dob = '{$birthday}', sex = {$sex}  WHERE uid = {$user}");
-	       
-		$sql = "SELECT * FROM interests_test WHERE uid = {$user}";	
-		$has_data = mysql_query($sql);
-		if (mysql_num_rows($has_data) == 0 ){
-		mysql_query("INSERT INTO interests_test (uid, hometown, current_location, network, dob, sex, interests, activities, music, movies, tv, political, books, country) VALUES ({$user}, '{$home_city}', '{$cur_city}', '{$affiliation}', '{$birthday}', {$sex}, '{$interests}', '{$activities}', '{$music}', '{$movies}', '{$tv}', '{$political}', '{$books}', '{$country}')");
-		}else{};
-
-		return $result;
-}
+        $country_name = mysql_fetch_array($result2);                                                                 
+				                
+        $tv = $result[0]['tv'];
+        $music = $result[0]['music'];                                                                                
+        $movies = $result[0]['movies'];                                                                              
+        $interests = $result[0]['interests'];                                                                        
+        $activities = $result[0]['activities'];
+        $books = $result[0]['books'];
+        $country = $country_name[0];                                                                                 
+										                
+        mysql_query("UPDATE users SET hometown = '{$home_city}', current_location = '{$cur_city}', network = '{$affiliation}', dob = '{$birthday}', sex = {$sex}  WHERE uid = {$user}");
+													                
+        $sql = "SELECT * FROM interests_test WHERE uid = {$user}";      
+        $has_data = mysql_query($sql);
+        if (mysql_num_rows($has_data) == 0 ){
+                mysql_query("INSERT INTO interests_test (uid, hometown, current_location, network, dob, sex, interests, activities, music, movies, tv, political, books, country) VALUES ({$user}, '{$home_city}', '{$cur_city}', '{$affiliation}', '{$birthday}', {$sex}, '{$interests}', '{$activities}', '{$music}', '{$movies}', '{$tv}', '{$political}', '{$books}', '{$country}')");
+                }else{};                                                                                                     
+																	                
+        return $result;                                                                                              
+}                 
 
 // Sets that the user was just updated
 function set_last_updated($uid) {

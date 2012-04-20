@@ -96,10 +96,9 @@ $bodyText4 = "- Unlimited access<br/>- Database search<br/>- Extended profiles<b
 		</div>
 		
 	</div>
-	<img style="background-repeat:repeat-x; background-color:#80b0e4; width:990px;" src="images/Ad_WaveBackground.png"/>
 </div>
 
 <?php
-//render_footer();
+render_footer();
 ?>
 </body></html>

@@ -1,9 +1,8 @@
 <?php
+
 function init_page(){
 	$conn = get_db_conn();
 }
-
-
 
 function newUser($email, $password, $firstname=NULL, $lastname=NULL) {
 
@@ -114,7 +113,7 @@ function getUserInfo($coderID){
 
 	$coderInfo = array();
 	while ($row = mysql_fetch_array($rs)) {
-		$coderInfo['handle'] = $row['shorthandle'];
+		$coderInfo['handle'] = $row['handle'];
 		$coderInfo['pic'] = $row['picURL'];
 		$coderInfo['fullname'] = $row['fullname'];
 		$coderInfo['email'] = $row['email'];

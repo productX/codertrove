@@ -1,12 +1,15 @@
 <?php
-require_once 'inc/master_inc.php';
+require_once("inc/master_inc.php");
 
 render_header();
 
 $testSearch = searchForCoders("ios php python developer");
 $tag_cloud = get_tag_cloud(34);
 //print_r($tag_cloud);
+
+
 ?>
+
 <div class="main">
 
 	<div class="title">Find <span class="highlight">Top Coders </span>through their online activity</div>
@@ -30,17 +33,11 @@ $tag_cloud = get_tag_cloud(34);
 		<div class="tag_cloud">
 <?php 
 	foreach($tag_cloud as $tag){
-		?> <a href="http://codertrove.com/top_coders.php?tech=<?=$tag['name']?>" style="font-size:<?=$tag['font-size']?>; <?php 
-$someNum = rand(1,10);
-?>; margin-left:<?=$someNum?>px;"><?=$tag['name']?></a>
-<?}?>
+		?> <a href="http://codertrove.com/top_coders.php?tech=<?php echo $tag['name'];?>" style="font-size:<?php echo $tag['font-size'];?>; <?php $someNum = rand(1,10);?>; margin-left:<?php echo $someNum;?>px;"><?php echo $tag['name'];?></a>
+<?php }?>
 		</div>
 		</div>
 	</div>
-	<img style="background-repeat:repeat-x; background-color:#80b0e4; width:990px;" src="images/Ad_WaveBackground.png"/>
-
-
-
 </div>
 
 
@@ -57,5 +54,6 @@ textfield.onblur = function() {
 
 
 <?php
-//render_footer();
+render_footer();
+
 ?>

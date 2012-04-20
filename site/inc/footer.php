@@ -5,8 +5,8 @@ function render_footer() {
 	mysql_close($conn);
 ?>
 
+<img style="background-repeat:repeat-x; background-color:#80b0e4; width:990px;" src="images/Ad_WaveBackground.png"/>
 <div style="clear:both"/>
-
 
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -23,6 +23,6 @@ function render_footer() {
 
   </script>
 
-<?
+<?php
 }
 ?>

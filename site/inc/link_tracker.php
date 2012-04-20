@@ -1,4 +1,4 @@
-<?
+<?php
 
 // Here's some general backdrop.  There is very much reason 
 // to track visits to urls either on your app, or send in notifications/e-mails from your app 

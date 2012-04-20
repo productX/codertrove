@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * A (non-Ajax) pagination class.  It uses a sql query, number of records per page and 
@@ -60,7 +60,7 @@ class Pagination {
 				font-weight: bold;
 			}
 		</style>
-<?
+<?php
 		if ($this->page > 1) {
 			$prev_page = $this->page - 1;
 			echo "<a href='{$url}?page={$prev_page}'> < Prev </a>";

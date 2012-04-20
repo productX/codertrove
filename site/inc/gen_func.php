@@ -1,4 +1,4 @@
-<?
+<?php
 
 // Appends $appending_url to $url for redirecting after a request 
 // or notification is made. 
@@ -23,30 +23,31 @@ function parseCsvLine($str) {
         $delimier = ',';
         $qualifier = '"';
         $qualifierEscape = '\\';
+        $fields = array(); 
+        while (strlen($str) > 0) { 
+                if ($str{0} == $delimier) $str = substr($str, 1); 
+	                if ($str{0} == $qualifier) { 
+	                        $value = ''; 
+	                        for ($i = 1; $i < strlen($str); $i++) { 
+	                                if (($str{$i} == $qualifier) && ($str{$i-1} != $qualifierEscape)) { 
+	                                        $str = substr($str, (strlen($value) + 2)); 
+	                                        $value = str_replace(($qualifierEscape.$qualifier), $qualifier, $value); 
+	                                        break; 
+	                                } 
+	                                $value .= $str{$i}; 
+	                        } 
+	                } else { 
+       		                $end = strpos($str, $delimier); 
+	                        $value = ($end !== false) ? substr($str, 0, $end) : $str; 
+	                        $str = substr($str, strlen($value)); 
+		        } 
+			$fields[] = $value;      
 
-        $fields = array();
-        while (strlen($str) > 0) {
-		if ($str{0} == $delimier)
-			$str = substr($str, 1);
-		if ($str{0} == $qualifier) {
-			$value = '';
-			for ($i = 1; $i < strlen($str); $i++) {
-				if (($str{$i} == $qualifier) && ($str{$i-1} != $qualifierEscape)) {
-					$str = substr($str, (strlen($value) + 2));
-					$value = str_replace(($qualifierEscape.$qualifier), $qualifier, $value);
-					break;
-				}
-				$value .= $str{$i};
-			}
-		} else {
-			$end = strpos($str, $delimier);
-			$value = ($end !== false) ? substr($str, 0, $end) : $str;
-			$str = substr($str, strlen($value));
-		}
-		$fields[] = $value;
-	}
+	} 
+
 	return $fields;
 }		
+
 
 /**
  * Truncates text to the first space prior to num_chars and appends '...'

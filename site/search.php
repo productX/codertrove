@@ -21,7 +21,7 @@ $numPeople = count($info) - 1;
 <div class="main">
 
 	<div class="title">
-		The web's <span class="highlight">Top <?=$skill?> Coders </span>
+		The web's <span class="highlight">Top <?php $skill; ?> Coders </span>
 		<br/> 
 		<span class="subtext">Gleaned by analysis of millions of online documents, comments, posts and discussions</span>
 	</div>
@@ -35,8 +35,8 @@ $numPeople = count($info) - 1;
 				<div class="expanded_folder">
 					<div class="folder_container_internal">
 					<div class="expanded_folder_photo">
-					<img class="coder_thumb_ad" src='<?=$info[0]['pic']?>'/>
-						<div class="name_folder_ad"><?=substr($info[0]['handle'],1,5)?><br/>
+					<img class="coder_thumb_ad" src='<?php $info[0]['pic']; ?>'/>
+						<div class="name_folder_ad"><?php substr($info[0]['handle'],1,5); ?><br/>
 							<a href="http://codertrove.com" name="location"></a>
 						</div>
 					</div>
@@ -46,9 +46,9 @@ $numPeople = count($info) - 1;
 
  <?php for($i=0;$i<$numSources;$i++){?>
  						<div class="coder_small_source_ad">
-						<p><?=$info[0]['sources'][$i+1]['name'];?> <br/>(<?=$info[0]['sources'][$i+1]['karma'];?>)</p>
+						<p><?php $info[0]['sources'][$i+1]['name'];?> <br/>(<?php $info[0]['sources'][$i+1]['karma'];?>)</p>
 						</div> 
-<?}?>
+<?php }?>
 					</div>
 					<div class="sample_comment">
 					<p>"<?php if(strlen($info[0]['activity'][1]['commentbody']) > 140){ substr($info[0]['activity'][1]['commentbody'],0,140);?>..<?}else{ echo $info[0]['activity'][1]['commentbody']; }?>"</p>	
@@ -60,8 +60,8 @@ $numPeople = count($info) - 1;
 				<div class="compact_folder">
 					<div class="compact_folder_container_internal">
 					<div class="compact_folder_photo">
-						<img class="coder_thumb_ad" src='<?=$info[$i]['pic']?>'/>
-						<div class="name_folder_ad"><?=substr($info[$i]['handle'],1,5)?><br/>
+						<img class="coder_thumb_ad" src='<?phh $info[$i]['pic'];?>'/>
+						<div class="name_folder_ad"><?php substr($info[$i]['handle'],1,5);?><br/>
 							<a href="http://codertrove.com"></a>
 						</div>
 					</div>
@@ -70,14 +70,14 @@ $numPeople = count($info) - 1;
 						<br/>	
  <?php for($g=0;$g<$numSources;$g++){?>
 						<div class="coder_small_source_ad">
-							<p><?=$info[$i]['sources'][$g+1]['name'];?> <br/>(<?=$info[$i]['sources'][$g+1]['karma'];?>)</p>
+							<p><?php $info[$i]['sources'][$g+1]['name'];?> <br/>(<?php $info[$i]['sources'][$g+1]['karma'];?>)</p>
 						</div> 
-<?}?>
+<?php } ?>
 
 					</div>
 					</div>
 				</div>
-<?}?>
+<?php } ?>
 			</div>
 		</div>
 
@@ -95,16 +95,14 @@ $numPeople = count($info) - 1;
 		<div class="tag_cloud_small" style="float:left;">
 <?php 
 	foreach($tag_cloud as $tag){
-		?> <a href="http://codertrove.com/top_coders.php?tech=<?=$tag['name']?>" style="font-size:<?=$tag['font-size']?>; <?php 
+		?> <a href="http://codertrove.com/top_coders.php?tech=<?php $tag['name'];?>" style="font-size:<?php $tag['font-size'];?>; <?php 
 $someNum = rand(1,10);
-?>; margin-left:<?=$someNum?>px;"><?=$tag['name']?></a>
-<?}?>
+?>; margin-left:<?php $someNum; ?>px;"><?php $tag['name'];?></a>
+<?php } ?>
 		</div>
 		</div>
 
 	</div>
-	<img style="background-repeat:repeat-x; background-color:#80b0e4; width:990px;" src="images/Ad_WaveBackground.png"/>
-
 </div>
 
 
@@ -121,5 +119,5 @@ textfield.onblur = function() {
 
 
 <?php
-//render_footer();
+render_footer();
 ?>
