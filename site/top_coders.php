@@ -3,11 +3,14 @@ require_once 'inc/master_inc.php';
 render_header();
 
 $skill = $_REQUEST['tech'];
+if(empty($page)){
+	$page = 1;
+}else{
 $page = $_REQUEST['page'];
+}
 
 $testSearch = searchForCoders("ios php python developer");
 $tag_cloud = get_tag_cloud(26);
-
 
 $info = getCoderResults($skill, 8, $page);
 

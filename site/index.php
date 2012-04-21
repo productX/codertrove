@@ -33,7 +33,7 @@ $tag_cloud = get_tag_cloud(34);
 		<div class="tag_cloud">
 <?php 
 	foreach($tag_cloud as $tag){
-		?> <a href="http://codertrove.com/top_coders.php?tech=<?php echo $tag['name'];?>" style="font-size:<?php echo $tag['font-size'];?>; <?php $someNum = rand(1,10);?>; margin-left:<?php echo $someNum;?>px;"><?php echo $tag['name'];?></a>
+		?> <a href="<?php echo WS_ROOT; ?>top_coders.php?tech=<?php echo $tag['name'];?>" style="font-size:<?php echo $tag['font-size'];?>; <?php $someNum = rand(1,10);?>; margin-left:<?php echo $someNum;?>px;"><?php echo $tag['name'];?></a>
 <?php }?>
 		</div>
 		</div>

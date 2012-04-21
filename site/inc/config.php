@@ -1,12 +1,12 @@
 <?php 
 
-define('WS_ROOT', 'http://codertrove.com/');
-define('IMAGES', 'http://codertrove.com/site/images/');
+define('WS_ROOT', 'http://codertrove.dev/');
+define('IMAGES', 'http://codertrove.dev/site/images/');
 
 // DB Credentials
 $db_ip = 'localhost';
 $db_user = 'root';
-$db_pass = '';
+$db_pass = 'faramir';
 #$db_pass = 'n1leriv3r';
 $db_name = 'codertrove';
 
