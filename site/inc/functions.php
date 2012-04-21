@@ -88,7 +88,7 @@ function getCoderResults($skill,$number,$page){
 
 
 	$coderArray = array();
-	$sql="SELECT coderskills.coderid, coders.email as email, coderskills.expertise as expertise FROM coderskills,coders WHERE skillid = {$skillid} AND coderskills.coderid = coders.id AND coders.picURL IS NOT NULL ORDER BY expertise, email DESC LIMIT {$number} OFFSET {$offset}";
+	$sql="SELECT coderskills.coderid, coders.picURL, coders.email as email, coderskills.expertise as expertise FROM coderskills,coders WHERE skillid = {$skillid} AND coderskills.coderid = coders.id AND coders.picURL IS NOT NULL ORDER BY expertise, email DESC LIMIT {$number} OFFSET {$offset}";
 	$rs = mysql_query($sql);
 	while ($row = mysql_fetch_array($rs)){
 		$coderArray[] = $row['coderid'];

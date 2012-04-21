@@ -22,6 +22,11 @@ $numSkills = count($info[0]['skills']);
 $numSources = count($info[0]['sources']);
 $numPeople = count($info) - 1;
 
+
+
+
+
+
 ?>
 <div class="main">
 
@@ -40,8 +45,20 @@ $numPeople = count($info) - 1;
 				<div class="expanded_folder">
 					<div class="folder_container_internal">
 					<div class="expanded_folder_photo">
-					<img class="coder_thumb_ad" src='<?php $info[0]['pic'];?>'/>
-						<div class="name_folder_ad"><?php substr($info[0]['handle'],1,5); ?><br/>
+					
+					<?php
+					 
+/*
+					echo "<pre>";
+					echo $info[0]['pic'];
+					echo print_r($info);					
+					echo "</pre>";
+*/
+
+					?>
+					
+					<img class="coder_thumb_ad" src='<?php echo $info[0]['pic'];?>'/>
+						<div class="name_folder_ad"><?php echo substr($info[0]['handle'],1,5); ?><br/>
 							<a href="http://codertrove.com" name="location"></a>
 						</div>
 					</div>
@@ -50,12 +67,12 @@ $numPeople = count($info) - 1;
 						<br/>
 <?php for($i=0;$i<$numSources;$i++){?>
  						<div class="coder_small_source_ad">
-						<p><?php $info[0]['sources'][$i+1]['name'];?> <br/>(<?php $info[0]['sources'][$i+1]['karma'];?>)</p>
+						<p><?php $info[0]['sources'][$i+1]['name'];?> <br/>(<?php echo $info[0]['sources'][$i+1]['karma'];?>)</p>
 						</div> 
 <?php } ?>
 					</div>
 					<div class="sample_comment">
-					<p>"<?php if(strlen($info[0]['activity'][1]['commentbody']) > 140){ substr($info[0]['activity'][1]['commentbody'],0,140);?>..<?php }else{ echo $info[0]['activity'][1]['commentbody']; }?>"</p>	
+					<p>"<?php if(strlen($info[0]['activity'][1]['commentbody']) > 140){ echo substr($info[0]['activity'][1]['commentbody'],0,140);?>..<?php }else{ echo $info[0]['activity'][1]['commentbody']; }?>"</p>	
 					</div>					
 					</div>
 				</div>
@@ -64,8 +81,8 @@ $numPeople = count($info) - 1;
 				<div class="compact_folder">
 					<div class="compact_folder_container_internal">
 					<div class="compact_folder_photo">
-						<img class="coder_thumb_ad" src='<?php $info[$i]['pic'];?>'/>
-						<div class="name_folder_ad"><?php substr($info[$i]['handle'],1,5); ?><br/>
+						<img class="coder_thumb_ad" src='<?php echo $info[$i]['pic'];?>'/>
+						<div class="name_folder_ad"><?php echo substr($info[$i]['handle'],1,5); ?><br/>
 							<a href="http://codertrove.com"></a>
 						</div>
 					</div>
@@ -74,7 +91,7 @@ $numPeople = count($info) - 1;
 						<br/>	
  <?php for($g=0;$g<$numSources;$g++){?>
 						<div class="coder_small_source_ad">
-							<p><?php $info[$i]['sources'][$g+1]['name'];?> <br/>(<?php $info[$i]['sources'][$g+1]['karma'];?>)</p>
+							<p><?php $info[$i]['sources'][$g+1]['name'];?> <br/>(<?php echo $info[$i]['sources'][$g+1]['karma'];?>)</p>
 						</div> 
 <?php } ?>
 
